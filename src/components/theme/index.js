@@ -43,4 +43,5 @@ export default {
   colors,
   borderRaidus: '8px',
   transition: '200ms ease-in-out',
+  fontFamily: '\'Rubik\', sans-serif',
 };
