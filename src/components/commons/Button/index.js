@@ -1,5 +1,6 @@
 import styled, {css} from "styled-components";
 import get from "lodash/get";
+import { TextStyleVariantsMap } from "../../foundation/Text";
 
 const ButtonGhost = css`
   background-color: transparent;
@@ -17,6 +18,8 @@ export const Button = styled.button`
   padding: 12px 26px;
   font-weight: bold;
   opacity: 1;
+
+  ${TextStyleVariantsMap.smallestException}
   
   ${props => {
     if (props.ghost) {
