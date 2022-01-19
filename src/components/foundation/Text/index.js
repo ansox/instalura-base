@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import propToStyle from '../../theme/utils/propToStyle';
 
 export const TextStyleVariantsMap = {
   paragraph1: css`
@@ -22,12 +23,15 @@ export const TextStyleVariantsMap = {
 };
 
 const TextBase = styled.span`
-  ${({variant}) => TextStyleVariantsMap[variant]}
+  ${({ variant }) => TextStyleVariantsMap[variant]}
+  ${propToStyle('textAlign')}
+  ${propToStyle('marginBottom')}
+  ${propToStyle('margin')}
 `;
 
-export default function Text({ tag, variant, children }) {
+export default function Text({ tag, variant, children, ...props }) {
   return (
-    <TextBase as={tag} variant={variant}>
+    <TextBase as={tag} variant={variant} {...props}>
       {children}
     </TextBase>
   );
@@ -36,8 +40,8 @@ export default function Text({ tag, variant, children }) {
 Text.propTypes = {
   tag: PropTypes.string.isRequired,
   variant: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired
-}
+  children: PropTypes.node.isRequired,
+};
 
 Text.defaultProps = {
   tag: 'span',
