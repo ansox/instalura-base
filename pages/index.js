@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import Menu from '../src/components/commons';
 import Footer from '../src/components/commons/Footer';
@@ -5,8 +6,11 @@ import Text from '../src/components/foundation/Text';
 import Button from '../src/components/commons/Button';
 import Grid from '../src/components/foundation/layout/Grid';
 import Box from '../src/components/foundation/layout/Box';
+import Modal from '../src/components/commons/Modal';
 
 export default function Home() {
+  const [isModalOpen, setModalOpen] = React.useState(false);
+
   return (
     <Box
       flex="1"
@@ -18,6 +22,18 @@ export default function Home() {
       backgroundRepeat="no-repeat"
       backgroundPosition="bottom right"
     >
+
+      <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
+        {(propsDoModal) => (
+          <Box
+            backgroundColor="white"
+            {...propsDoModal}
+          >
+            Conteudo 2
+          </Box>
+        )}
+      </Modal>
+
       <Menu />
 
       <Grid.Container>
@@ -68,6 +84,7 @@ export default function Home() {
                 md: 'initial',
               }}
               variant="primary.main"
+              onClick={() => setModalOpen(!isModalOpen)}
             >
               Cadastrar
             </Button>
