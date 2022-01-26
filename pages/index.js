@@ -7,9 +7,10 @@ import Button from '../src/components/commons/Button';
 import Grid from '../src/components/foundation/layout/Grid';
 import Box from '../src/components/foundation/layout/Box';
 import Modal from '../src/components/commons/Modal';
+import FormCadastro from '../src/components/patterns/FormCadastro';
 
 export default function Home() {
-  const [isModalOpen, setModalOpen] = React.useState(false);
+  const [isModalOpen, setModalOpen] = React.useState(true);
 
   return (
     <Box
@@ -25,12 +26,13 @@ export default function Home() {
 
       <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
         {(propsDoModal) => (
-          <Box
-            backgroundColor="white"
-            {...propsDoModal}
-          >
-            Conteudo 2
-          </Box>
+          <FormCadastro propsDoModal={propsDoModal} />
+          // <Box
+          //   backgroundColor="white"
+          //   {...propsDoModal}
+          // >
+          //   Conteudo 2
+          // </Box>
         )}
       </Modal>
 

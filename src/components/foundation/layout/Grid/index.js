@@ -97,6 +97,7 @@ const Col = styled.div`
   ${propToStyle('justifyContent')}
   ${propToStyle('alignItems')}
   ${propToStyle('flexDirection')}
+  ${propToStyle('paddingRight')}
 `;
 
 const Grid = {
@@ -134,6 +135,10 @@ const Grid = {
     flex-wrap: wrap;
     margin-right: -16px;
     margin-left: -16px;
+    ${propToStyle('flex')}
+    ${propToStyle('marginLeft')}
+    ${propToStyle('marginRight')}
+    ${propToStyle('justifyContent')}
   `,
 
   Col,
