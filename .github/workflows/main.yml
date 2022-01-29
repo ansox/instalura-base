@@ -26,8 +26,10 @@ jobs:
       ############################
 
       # Runs a single command using the runners shell
-      - name: Roda o linter!
+      - name: Node version!
         run: node -v
+      - name: Install de dependencias
+        run: yarn install
       - name: Roda o linter!
         run: yarn lint
 
