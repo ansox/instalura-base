@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
 import Menu from '../src/components/commons';
 import Footer from '../src/components/commons/Footer';
 import Text from '../src/components/foundation/Text';
