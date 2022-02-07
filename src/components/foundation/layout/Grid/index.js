@@ -108,6 +108,10 @@ const Grid = {
     padding-left: 28px;
     margin-right: auto;
     margin-left: auto;
+    ${propToStyle('display')}
+    ${propToStyle('flex')}
+    ${propToStyle('alignItems')}
+    ${propToStyle('marginTop')}
     ${breakpointsMedia({
     xs: css`
         max-width: initial;
