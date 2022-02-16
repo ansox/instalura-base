@@ -51,5 +51,6 @@ export default function useForm({ initialValues, onSubmit, validateSchema }) {
         [fieldName]: true,
       });
     },
+    setIsFormDisabled,
   };
 }
