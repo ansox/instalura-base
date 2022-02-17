@@ -7,22 +7,25 @@ export default function useForm({ initialValues, onSubmit, validateSchema }) {
   const [errors, setErrors] = React.useState({});
   const [touched, setTouchedFields] = React.useState({});
 
+  async function validateValues(currentValues) {
+    try {
+      await validateSchema(currentValues);
+      setErrors({});
+      setIsFormDisabled(false);
+    } catch (error) {
+      setIsFormDisabled(true);
+
+      const formatedErrors = error.inner.reduce((acc, { path, message }) => ({
+        ...acc,
+        [path]: message,
+      }), {});
+
+      setErrors(formatedErrors);
+    }
+  }
+
   React.useEffect(() => {
-    validateSchema(values)
-      .then(() => {
-        setIsFormDisabled(false);
-        setErrors({});
-      })
-      .catch((error) => {
-        setIsFormDisabled(true);
-
-        const formatedErrors = error.inner.reduce((acc, { path, message }) => ({
-          ...acc,
-          [path]: message,
-        }), {});
-
-        setErrors(formatedErrors);
-      });
+    validateValues(values);
   }, [values]);
 
   return {
