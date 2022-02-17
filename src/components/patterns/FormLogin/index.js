@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import * as yup from 'yup';
+import PropTypes from 'prop-types';
 import Button from '../../commons/Button';
 import TextField from '../../forms/TextField';
 import useForm from '../../../infra/hooks/forms/useForm';
@@ -17,7 +18,7 @@ const loginSchema = yup.object().shape({
     .min(8, 'Preencha ao menos 8 caracteres'),
 });
 
-export default function LoginForm() {
+export default function LoginForm({ onSubmit }) {
   const router = useRouter();
 
   const initialValues = {
@@ -38,8 +39,6 @@ export default function LoginForm() {
         })
         .catch((error) => {
           console.log(error);
-        })
-        .finally(() => {
           form.setIsFormDisabled(false);
         });
     },
@@ -49,7 +48,7 @@ export default function LoginForm() {
   });
 
   return (
-    <form id="formCadastro" onSubmit={form.handleSubmit}>
+    <form id="formCadastro" onSubmit={onSubmit || form.handleSubmit}>
       <TextField
         placeholder="Usuário"
         name="usuario"
@@ -85,3 +84,11 @@ export default function LoginForm() {
     </form>
   );
 }
+
+LoginForm.defaultProps = {
+  onSubmit: undefined,
+};
+
+LoginForm.propTypes = {
+  onSubmit: PropTypes.func,
+};
