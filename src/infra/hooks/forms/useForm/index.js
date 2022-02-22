@@ -1,5 +1,12 @@
 import React from 'react';
 
+function formatErrors(yupErrors = []) {
+  return yupErrors.reduce((acc, { path, message }) => ({
+    ...acc,
+    [path]: message,
+  }), {});
+}
+
 export default function useForm({ initialValues, onSubmit, validateSchema }) {
   const [values, setValues] = React.useState(initialValues);
 
@@ -15,10 +22,7 @@ export default function useForm({ initialValues, onSubmit, validateSchema }) {
     } catch (error) {
       setIsFormDisabled(true);
 
-      const formatedErrors = error.inner.reduce((acc, { path, message }) => ({
-        ...acc,
-        [path]: message,
-      }), {});
+      const formatedErrors = formatErrors(error.inner);
 
       setErrors(formatedErrors);
     }

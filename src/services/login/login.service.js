@@ -24,8 +24,8 @@ const BASE_URL = isStagingEnv
   : 'https://instalura-api.vercel.app';
 
 const loginService = {
-  async login({ username, password }) {
-    return HttpClient(`${BASE_URL}/api/login`, {
+  async login({ username, password }, setCookieModule = setCookie, HttpClientModule = HttpClient) {
+    return HttpClientModule(`${BASE_URL}/api/login`, {
       method: 'POST',
       body: {
         username,
@@ -34,7 +34,13 @@ const loginService = {
     })
       .then((response) => {
         const { token } = response.data;
-        setCookie(null, 'APP_TOKEN', token, {
+
+        const hasToken = Boolean(token);
+        if (!hasToken) {
+          throw new Error('Failed to login');
+        }
+
+        setCookieModule(null, 'APP_TOKEN', token, {
           path: '/',
           maxAge: 30 * 24 * 60 * 60,
         });
@@ -45,8 +51,8 @@ const loginService = {
       });
   },
 
-  logout() {
-    destroyCookie('APP_TOKEN');
+  async logout(destroyCookieModule = destroyCookie) {
+    destroyCookieModule(null, 'APP_TOKEN');
   },
 
 };
