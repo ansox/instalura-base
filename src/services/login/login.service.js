@@ -1,23 +1,8 @@
 import { setCookie, destroyCookie } from 'nookies';
 import isStagingEnv from '../../infra/env/isStangingEnv';
+import HttpClient from '../../infra/http/HttpClient';
 
-async function HttpClient(url, { headers, body, ...options }) {
-  return fetch(url, {
-    ...options,
-    headers: {
-      ...headers,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  })
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-
-      throw new Error('Não foi possível fazer o login');
-    });
-}
+export const LOGIN_COOKIE_APP_TOKEN = 'APP_TOKEN';
 
 const BASE_URL = isStagingEnv
   ? 'https://instalura-api.vercel.app'
@@ -40,7 +25,7 @@ const loginService = {
           throw new Error('Failed to login');
         }
 
-        setCookieModule(null, 'APP_TOKEN', token, {
+        setCookieModule(null, LOGIN_COOKIE_APP_TOKEN, token, {
           path: '/',
           maxAge: 30 * 24 * 60 * 60,
         });
@@ -51,8 +36,8 @@ const loginService = {
       });
   },
 
-  async logout(destroyCookieModule = destroyCookie) {
-    destroyCookieModule(null, 'APP_TOKEN');
+  async logout(ctx, destroyCookieModule = destroyCookie) {
+    destroyCookieModule(ctx, LOGIN_COOKIE_APP_TOKEN, { path: '/' });
   },
 
 };
