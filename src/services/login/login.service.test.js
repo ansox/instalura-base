@@ -59,9 +59,9 @@ describe('loginService', () => {
   describe('logout()', () => {
     describe('when user try to logout and succeed', () => {
       test('remove its token', async () => {
-        await loginService.logout(destroyCookie);
+        await loginService.logout(null, destroyCookie);
 
-        expect(destroyCookie).toHaveBeenCalledWith(null, 'APP_TOKEN');
+        expect(destroyCookie).toHaveBeenCalledWith(null, 'APP_TOKEN', { path: '/' });
       });
     });
   });

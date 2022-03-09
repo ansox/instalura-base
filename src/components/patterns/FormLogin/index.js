@@ -35,10 +35,9 @@ export default function LoginForm({ onSubmit }) {
         password: values.senha,
       })
         .then(() => {
-          router.push('/app/profile/');
+          router.push('/app/profile');
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
           form.setIsFormDisabled(false);
         });
     },
